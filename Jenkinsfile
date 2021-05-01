@@ -15,7 +15,7 @@ node {
 
         withCredentials([string(credentialsId: 'DockerPassword', variable: 'DockerPassword')]) {
 
-        sh "docker login rkuru -p ${DockerPassword}"
+        sh "docker login -u rkuru --password-stdin ${DockerPassword}"
         sh "docker push rkuru/school_app:latest"
         sh "docker push rkuru/nginx:latest"
         }
