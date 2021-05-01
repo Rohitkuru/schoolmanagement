@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  school_app:
+    image: rkuru/school_app:v8
+
+  nginx:
+     image: rkuru/nginx:v5
+     ports:
+       - "80:80"
+     depends_on:
+       - school_app
