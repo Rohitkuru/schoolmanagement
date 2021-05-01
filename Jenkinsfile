@@ -8,7 +8,7 @@ node {
     stage("Test and build - docker images")
         {
             sh "docker build -t rkuru/school_app:latest ."
-            sh "docker build -t rkuru/nginx:latest nginx/ ."
+            sh "docker build -t rkuru/nginx:latest nginx/."
         }
 
     stage("Push Docker Images to DockerHub"){
