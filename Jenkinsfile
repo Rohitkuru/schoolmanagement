@@ -2,7 +2,7 @@ node {
 
     stage("Clone from SCM - Github")
         {
-            git branch: 'main', credentialsId: 'Github-2', url: 'https://github.com/Rohitkuru/schoolmanagement.git'
+            git branch: 'master', credentialsId: 'Github-2', url: 'https://github.com/Rohitkuru/schoolmanagement.git'
         }
 
     stage("Test and build - docker images")
