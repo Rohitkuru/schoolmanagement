@@ -13,10 +13,10 @@ node {
 
     stage("Push Docker Images to DockerHub"){
 
-        withCredentials([string(credentialsId: 'DockerPassword-2', variable: 'DockerPassword-2')])
+        withCredentials([string(credentialsId: 'newdockercre', variable: 'newdockercre')])
         {
 
-        sh "docker login -u rkuru -p ${DockerPassword-2}"
+         sh "docker login -u rkuru -p ${newdockercre}"
         sh "docker push rkuru/school_app:latest"
         sh "docker push rkuru/nginx:latest"
         }
