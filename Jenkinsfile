@@ -8,7 +8,7 @@ node {
     stage("Test and build - docker images")
         {
             sh "docker build -t rkuru/school_app:latest ."
-            sh "docker build -t rkuru/nginx:latest nginx/."
+            sh "docker build -t rkuru/school_app-nginx:latest nginx/."
         }
 
     stage("Push Docker Images to DockerHub"){
@@ -18,7 +18,7 @@ node {
 
             sh "docker login -u rkuru -p ${newdockercre}"
             sh "docker push rkuru/school_app:latest"
-            sh "docker push rkuru/nginx:latest"
+            sh "docker push rkuru/school_app-nginx:latest"
         }
 
     stage("Pull images to webserver")
@@ -27,7 +27,7 @@ node {
             {
                    sh "scp -o StrictHostKeyChecking=NO docker-compose.yml automation@194.195.119.41:/app"
                    sh "ssh -o StrictHostKeyChecking=NO automation@194.195.119.41 /usr/bin/sudo docker pull rkuru/school_app:latest"
-                   sh "ssh -o StrictHostKeyChecking=NO automation@194.195.119.41 /usr/bin/sudo docker pull rkuru/nginx:latest"
+                   sh "ssh -o StrictHostKeyChecking=NO automation@194.195.119.41 /usr/bin/sudo docker pull rkuru/school_app-nginx:latest"
                    sh "ssh -o StrictHostKeyChecking=NO automation@194.195.119.41 /usr/bin/sudo docker stack deploy --compose-file /app/docker-compose.yml schoo_app"
             }
 
