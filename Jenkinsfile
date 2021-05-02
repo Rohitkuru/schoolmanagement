@@ -16,11 +16,22 @@ node {
         withCredentials([string(credentialsId: 'newdockercre', variable: 'newdockercre')])
         {
 
-         sh "docker login -u rkuru -p ${newdockercre}"
-        sh "docker push rkuru/school_app:latest"
-        sh "docker push rkuru/nginx:latest"
+            sh "docker login -u rkuru -p ${newdockercre}"
+            sh "docker push rkuru/school_app:latest"
+            sh "docker push rkuru/nginx:latest"
         }
 
+    stage("Pull images to webserver")
+        {
+            sshagent(['swam-agent-test'])
+            {
+                   sh "scp -o StrictHostKeyChecking=NO docker-compose.yml automation@194.195.119.41:/app"
+                   sh "ssh -o StrictHostKeyChecking=NO automation@194.195.119.41 /usr/bin/sudo docker pull rkuru/schoo_app:latest"
+                   sh "ssh -o StrictHostKeyChecking=NO automation@194.195.119.41 /usr/bin/sudo docker pull rkuru/nginx:latest"
+                   sh "ssh -o StrictHostKeyChecking=NO automation@194.195.119.41 /usr/bin/sudo docker stack deploy --compose-file /app/docker-compose.yml schoo_app"
+            }
+
+        }
 
 
     }
