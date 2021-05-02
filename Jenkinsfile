@@ -26,7 +26,7 @@ node {
             sshagent(['swam-agent-test'])
             {
                    sh "scp -o StrictHostKeyChecking=NO docker-compose.yml automation@194.195.119.41"
-                   sh "ssh -o StrictHostKeyChecking=NO automation@194.195.119.41 /usr/bin/sudo docker pull rkuru/schoo_app:latest"
+                   sh "ssh -o StrictHostKeyChecking=NO automation@194.195.119.41 /usr/bin/sudo docker pull rkuru/school_app:latest"
                    sh "ssh -o StrictHostKeyChecking=NO automation@194.195.119.41 /usr/bin/sudo docker pull rkuru/nginx:latest"
                    sh "ssh -o StrictHostKeyChecking=NO automation@194.195.119.41 /usr/bin/sudo docker stack deploy --compose-file docker-compose.yml schoo_app"
             }
